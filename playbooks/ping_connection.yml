@@ -1,0 +1,6 @@
+---
+
+- name: Ping connection
+  hosts: all
+  roles:
+    - role: roles/check_connection
