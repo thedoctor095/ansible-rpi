@@ -1,0 +1,40 @@
+---
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 300
+
+- name: Upgrade packages
+  apt:
+    upgrade: yes
+
+- name: Autoclean repo
+  apt:
+    autoclean: yes
+
+- name: Install unattended-upgrades
+  package:
+    name: unattended-upgrades
+    state: present
+
+# kind of duplicated tasks but why not
+# https://wiki.debian.org/UnattendedUpgrades#Automatic_call_via_.2Fetc.2Fapt.2Fapt.conf.d.2F20auto-upgrades
+- name: Configure unattended-upgrades
+  copy:
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+    content: "{{ security_auto_upgrades }}"
+
+- name: Setup periodic unattended-upgrades
+  copy:
+    dest: /etc/apt/apt.conf.d/02periodic
+    content: "{{ periodic_auto_upgrades }}"
+
+- name: Check unatended-upgrades
+  command:
+    cmd: unattended-upgrade --dry-run --debug
+  register: unattended_upgrades
+
+- name: Dry-run debug unattended-upgrades
+  debug:
+    msg: "{{ unattended_upgrades.stdout_lines }}"

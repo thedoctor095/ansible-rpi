@@ -1,0 +1,6 @@
+---
+
+- name: Setup system monitoring
+  hosts: all
+  roles:
+    - role: roles/setup_monitoring

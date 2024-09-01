@@ -1,0 +1,17 @@
+---
+
+- name: Remove unused packages
+  package:
+    name:
+      - mailutils
+      - cups
+    state: absent
+    purge: yes
+
+- name: Autoclean repo
+  apt:
+    autoclean: yes
+
+- name: Remove dependencies no longer required
+  apt:
+    autoremove: yes

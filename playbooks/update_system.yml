@@ -1,0 +1,7 @@
+---
+
+- name: Setup system updating
+  hosts: all
+  roles:
+    - role: roles/setup_system_updating
+      vars_from: roles/setup_system_updating/vars/main.yml

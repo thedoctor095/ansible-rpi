@@ -1,0 +1,21 @@
+---
+
+ssh_new_port: 8190
+sysctl_config:
+  net.ipv6.conf.all.disable_ipv6: 1
+  net.ipv6.conf.default.disable_ipv6: 1
+  net.ipv6.conf.lo.disable_ipv6: 1
+fail2ban_jail_local: |
+      [DEFAULT]
+      bantime  = 48h
+      findtime  = 5m
+      maxretry = 2
+      
+      [sshd]
+      enabled = true
+      mode = aggressive
+      port = {{ ssh_new_port }}
+      backend = systemd
+fail2ban_local_conf: |
+      [Definition]
+      allowipv6 = auto

@@ -1,0 +1,72 @@
+---
+
+- name: Add Grafana repository
+  apt_repository:
+    repo: 'deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main'
+    filename: grafana
+    state: present
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 300
+
+- name: Install Promtail & Loki
+  apt:
+    name:
+      - promtail
+      - loki
+    state: present
+
+- name: Copy Promtail config
+  copy:
+    src: promtail_config.yaml
+    dest: /etc/promtail/config.yml
+    mode: '0644'
+    backup: true
+
+- name: Copy Loki config
+  copy:
+    src: loki_config.yaml
+    dest: /etc/loki/config.yml
+    mode: '0644'
+    backup: true
+
+- name: Enable Promtail
+  service:
+    name: promtail
+    state: restarted
+    enabled: yes
+
+
+- name: Enable Loki
+  service:
+    name: loki
+    state: restarted
+    enabled: yes
+
+- name: Install Grafana dependencies
+  apt:
+    name:
+      - apt-transport-https
+      - wget
+      - software-properties-common
+    state: present
+
+- name: Install Grafana
+  apt:
+    name: grafana-enterprise
+    state: present
+
+- name: Disable Grafana reporting
+  replace:
+    path: /etc/grafana/grafana.ini
+    regexp: '^;reporting_enabled\s*=\s*.*'
+    replace: ';reporting_enabled = false'
+    backup: true
+
+- name: Enable Grafana
+  service:
+    name: grafana-server
+    state: started
+    enabled: yes

@@ -1,0 +1,6 @@
+---
+
+- name: Remove unused packages, unused dependencies & autoclean local repository
+  hosts: all
+  roles:
+    - role: roles/post_install_cleanup

@@ -1,0 +1,7 @@
+---
+
+- name: Setup system security
+  hosts: all
+  roles:
+    - role: roles/setup_security
+      vars_from: roles/setup_security/vars/main.yml
