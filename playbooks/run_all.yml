@@ -2,4 +2,4 @@
 - import_playbook: update_system.yml
 - import_playbook: configure_security.yml
 - import_playbook: configure_monitoring.yml
-- import playbook: post_install_cleanup.yml
+- import_playbook: post_install_cleanup.yml
