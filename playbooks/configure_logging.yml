@@ -1,0 +1,6 @@
+---
+
+- name: Setup system logging
+  hosts: all
+  roles:
+    - role: roles/setup_logging
