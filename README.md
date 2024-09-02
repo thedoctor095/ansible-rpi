@@ -107,7 +107,7 @@ The last playbook runs all the previously mentioned playbooks in order.
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/thedoctor095/ansible-rpi/blob/master/LICENSE) file for details.
 
 ## Contributors
-Feel free to contribute to the project by forking the repository, make your changes and open a pull request from your fork's branch to the original repository master branch
+Feel free to contribute to the project by forking the repository, make your changes and open a pull request from your fork's branch to the original repository master branch.
 
 ## Reporting Issues
 If you find a bug or have a feature request, please open an issue and provide as much detail as possible.
